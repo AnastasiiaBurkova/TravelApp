@@ -1,0 +1,66 @@
+[debug] [2020-04-11T13:44:59.963Z] ----------------------------------------------------------------------
+[debug] [2020-04-11T13:44:59.965Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve --host 0.0.0.0
+[debug] [2020-04-11T13:44:59.968Z] CLI Version:   8.0.2
+[debug] [2020-04-11T13:44:59.969Z] Platform:      darwin
+[debug] [2020-04-11T13:44:59.969Z] Node Version:  v13.7.0
+[debug] [2020-04-11T13:44:59.970Z] Time:          Sat Apr 11 2020 16:44:59 GMT+0300 (Eastern European Summer Time)
+[debug] [2020-04-11T13:44:59.971Z] ----------------------------------------------------------------------
+[debug] [2020-04-11T13:44:59.971Z] 
+[debug] [2020-04-11T13:44:59.987Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-04-11T13:44:59.988Z] > authorizing via signed-in user
+[debug] [2020-04-11T13:44:59.988Z] [iam] checking project travelapp-272619 for permissions ["firebase.projects.get"]
+[debug] [2020-04-11T13:44:59.991Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/travelapp-272619:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2020-04-11T13:45:01.029Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 11 Apr 2020 13:45:00 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=848","alt-svc":"quic=\":443\"; ma=2592000; v=\"46,43\",h3-Q050=\":443\"; ma=2592000,h3-Q049=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-04-11T13:45:01.030Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/travelapp-272619  
+ 
+[debug] [2020-04-11T13:45:01.332Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 11 Apr 2020 13:45:01 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"quic=\":443\"; ma=2592000; v=\"46,43\",h3-Q050=\":443\"; ma=2592000,h3-Q049=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+[info] === Serving from '/Users/aburkova/Code/TravelApp'...
+[info] 
+[debug] [2020-04-11T13:45:01.341Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/travelapp-272619/webApps/-/config  
+ 
+[warn] ⚠  Your requested "node" version "8" doesn't match your global version "13"
+[info] ✔  functions: functions emulator started at http://0.0.0.0:5001
+[debug] [2020-04-11T13:45:02.256Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 11 Apr 2020 13:45:02 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"quic=\":443\"; ma=2592000; v=\"46,43\",h3-Q050=\":443\"; ma=2592000,h3-Q049=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] i  functions: Watching "/Users/aburkova/Code/TravelApp/functions" for Cloud Functions...
+[debug] [2020-04-11T13:45:02.296Z] [worker-pool] addWorker(~diagnostic~) 
+[debug] [2020-04-11T13:45:02.296Z] [worker-pool] Adding worker with key ~diagnostic~, total=1 
+[debug] [2020-04-11T13:45:02.297Z] [worker-pool] submitWork(triggerId=) 
+[debug] [2020-04-11T13:45:02.297Z] [worker-~diagnostic~-49d03532-13f8-4479-b241-6eb517d97dc1]: Assigning socketPath: /var/folders/qd/qfdg7yyn779_k6xmclk2fjy0xpxsnw/T/fire_emu_4146.sock 
+[debug] [2020-04-11T13:45:02.297Z] [worker-~diagnostic~-49d03532-13f8-4479-b241-6eb517d97dc1]: BUSY 
+[info] i  hosting: Serving hosting files from: public
+[info] ✔  hosting: Local server: http://0.0.0.0:5000
+[debug] [2020-04-11T13:45:02.557Z] [runtime-status] [4146] Functions runtime initialized. {"cwd":"/Users/aburkova/Code/TravelApp/functions","node_version":"13.7.0"} 
+[debug] [2020-04-11T13:45:02.557Z] [runtime-status] [4146] Disabled runtime features: undefined 
+[debug] [2020-04-11T13:45:02.562Z] [runtime-status] [4146] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/aburkova/Code/TravelApp/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-11T13:45:02.564Z] [runtime-status] [4146] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.6.0","resolution":"/Users/aburkova/Code/TravelApp/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-11T13:45:02.566Z] [runtime-status] [4146] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] 
+[debug] [2020-04-11T13:45:02.705Z] [runtime-status] [4146] Checked functions.config() {"config":{}} 
+[debug] [2020-04-11T13:45:02.706Z] [runtime-status] [4146] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.6.0","resolution":"/Users/aburkova/Code/TravelApp/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-11T13:45:02.707Z] [runtime-status] [4146] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/aburkova/Code/TravelApp/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-11T13:45:02.708Z] [runtime-status] [4146] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.6.0","resolution":"/Users/aburkova/Code/TravelApp/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-11T13:45:02.708Z] [runtime-status] [4146] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"8.10.0","resolution":"/Users/aburkova/Code/TravelApp/functions/node_modules/firebase-admin/lib/index.js"}} 
+[debug] [2020-04-11T13:45:02.710Z] [worker-~diagnostic~-49d03532-13f8-4479-b241-6eb517d97dc1]: IDLE 
+[debug] [2020-04-11T13:46:40.957Z] ----------------------------------------------------------------------
+[debug] [2020-04-11T13:46:40.958Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve --only hosting
+[debug] [2020-04-11T13:46:40.959Z] CLI Version:   8.0.2
+[debug] [2020-04-11T13:46:40.959Z] Platform:      darwin
+[debug] [2020-04-11T13:46:40.959Z] Node Version:  v13.7.0
+[debug] [2020-04-11T13:46:40.959Z] Time:          Sat Apr 11 2020 16:46:40 GMT+0300 (Eastern European Summer Time)
+[debug] [2020-04-11T13:46:40.960Z] ----------------------------------------------------------------------
+[debug] [2020-04-11T13:46:40.960Z] 
+[debug] [2020-04-11T13:46:40.967Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-04-11T13:46:40.967Z] > authorizing via signed-in user
+[debug] [2020-04-11T13:46:40.967Z] [iam] checking project travelapp-272619 for permissions ["firebase.projects.get"]
+[debug] [2020-04-11T13:46:40.970Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/travelapp-272619:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2020-04-11T13:46:41.984Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 11 Apr 2020 13:46:41 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=876","alt-svc":"quic=\":443\"; ma=2592000; v=\"46,43\",h3-Q050=\":443\"; ma=2592000,h3-Q049=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-04-11T13:46:41.986Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/travelapp-272619  
+ 
+[debug] [2020-04-11T13:46:42.391Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 11 Apr 2020 13:46:42 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"quic=\":443\"; ma=2592000; v=\"46,43\",h3-Q050=\":443\"; ma=2592000,h3-Q049=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-04-11T13:46:42.394Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/travelapp-272619/webApps/-/config  
+ 
+[debug] [2020-04-11T13:46:43.606Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 11 Apr 2020 13:46:43 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"quic=\":443\"; ma=2592000; v=\"46,43\",h3-Q050=\":443\"; ma=2592000,h3-Q049=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] i  hosting: Serving hosting files from: public
+[info] ✔  hosting: Local server: http://localhost:5000
