@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
+import Travel from '../screens/Travel';
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Links';
@@ -28,6 +29,14 @@ export default function BottomTabNavigator({ navigation, route }) {
         component={LinksScreen}
         options={{
           title: 'User',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-user" />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Travel"
+        component={Travel}
+        options={{
+          title: 'Travel',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-user" />,
         }}
       />

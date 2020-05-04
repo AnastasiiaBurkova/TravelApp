@@ -6,6 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import AddBlogPost from './AddBlogPost';
+import PersonalMap from './PersonalMap';
 import SignUp from './SignUp';
 import Login from './Login';
 import Load from './Load';
@@ -59,6 +60,7 @@ export default function App(props) {
           <Stack.Navigator initialRouteName={"Load"} screenOptions={{headerShown: false}} >
             <Stack.Screen name="Root" component={BottomTabNavigator} />
             <Stack.Screen name="AddBlogPost" component={AddBlogPost} />
+            <Stack.Screen name="PersonalMap" component={PersonalMap} />
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="Load" component={Load} />

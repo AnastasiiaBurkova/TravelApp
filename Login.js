@@ -25,7 +25,7 @@ export default function Login(props) {
     console.log("password,", password);
     Firebase.auth()
       .signInWithEmailAndPassword(email, password)
-      .then(() => navigate("Links"))
+      .then(() => navigate("Load"))
       .catch((error) => setAuthError(error.message));
   };
 

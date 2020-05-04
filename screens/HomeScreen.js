@@ -1,170 +1,132 @@
-import * as React from 'react';
-import { Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import React, { useState, useEffect } from "react";
+import { StyleSheet, FlatList, View, AsyncStorage } from 'react-native';
+import { Text, Button, Card } from 'react-native-elements';
+import { Ionicons } from '@expo/vector-icons';
 import * as WebBrowser from 'expo-web-browser';
+import { RectButton, ScrollView, TextInput } from 'react-native-gesture-handler';
+import Firebase from "firebase";
+import Load from "../Load";
 
-import { MonoText } from '../components/StyledText';
 
-export default function HomeScreen() {
-  return (
-    <View style={styles.container}>
-      <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-        <View style={styles.welcomeContainer}>
-          <Image
-            source={
-              __DEV__
-                ? require('../assets/images/robot-dev.png')
-                : require('../assets/images/robot-prod.png')
-            }
-            style={styles.welcomeImage}
-          />
-        </View>
+export default function HomeScreen(props) {
+const [postList, setPostList] = useState([]);
+const { navigate } = props.navigation;
 
-        <View style={styles.getStartedContainer}>
-          <DevelopmentModeNotice />
 
-          
 
-          <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-            <MonoText>screens/HomeScreen.js</MonoText>
-          </View>
+useEffect(() => {
+  Firebase.database()
+    .ref("blogPostdb/")
+    .on("value", snapshot => {
+      console.log("SNAPSHOT", snapshot);
+      const data = snapshot.val();
+     
+      console.log("data", data);
+      const prods = Object.values(data);
+   
+      console.log("prods in home" + prods);
 
-          <Text style={styles.getStartedText}>
-            Change any of the text, save the file, and your app will automatically reload.
-          </Text>
-        </View>
+      
 
-      </ScrollView>
+  
 
-      <View style={styles.tabBarInfoContainer}>
-        <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
+        if (prods!=null) {
+      setPostList(prods);
+    }
 
-        <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-          <MonoText style={styles.codeHighlightText}>navigation/BottomTabNavigator.js</MonoText>
-        </View>
-      </View>
-    </View>
-  );
-}
+    });
+}, []);
 
-HomeScreen.navigationOptions = {
-  header: null,
+
+
+
+
+const keyExtractor = item => {
+  console.log("YTEM", item.id);
+  return item;
 };
 
-function DevelopmentModeNotice() {
-  if (__DEV__) {
-    const learnMoreButton = (
-      <Text onPress={handleLearnMorePress} style={styles.helpLinkText}>
-        Learn more
-      </Text>
-    );
+const renderItem = ({ item }) => (
 
-    return (
-      <Text style={styles.developmentModeText}>
-        Development mode is enabled: your app will be slower but you can use useful development
-        tools. {learnMoreButton}
-      </Text>
-    );
-  } else {
-    return (
-      <Text style={styles.developmentModeText}>
-        You are not in development mode: your app will run at full speed.
-      </Text>
-    );
-  }
-}
 
-function handleLearnMorePress() {
-  WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/workflow/development-mode/');
-}
+<Card
+  title={item.title}
+  image={{ uri: item.imageUri }}>
+  <Text style={{marginBottom: 10}}>
+  {item.description}
+  </Text>
+</Card>
 
-function handleHelpPress() {
-  WebBrowser.openBrowserAsync(
-    'https://docs.expo.io/versions/latest/get-started/create-a-new-app/#making-your-first-change'
+);
+
+
+
+  
+  return (
+    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+      
+      
+    
+          <FlatList contentContainerStyle={{
+            flexDirection:'row',
+            flexWrap:'wrap',
+            alignContent: 'stretch',
+            flex: 0.5
+          }}
+            style={{ marginTop: 10 }}
+            keyExtractor={keyExtractor}
+            renderItem={renderItem}
+            data={postList}
+          />
+        
+     
+        <View>
+        </View>
+    </ScrollView>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  developmentModeText: {
-    marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: 'center',
+    //flex: 1,
+    backgroundColor: "#C3DBE3",
   },
   contentContainer: {
-    paddingTop: 30,
+    //flexGrow: 1,
+    //justifyContent: "center",
+    //alignItems: "center",
   },
-  welcomeContainer: {
-    alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
+  optionIconContainer: {
+    marginRight: 12,
   },
-  welcomeImage: {
-    width: 100,
-    height: 80,
-    resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
-  },
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
-  },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  getStartedText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 24,
-    textAlign: 'center',
-  },
-  tabBarInfoContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 20,
-      },
-    }),
-    alignItems: 'center',
-    backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
-  },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    textAlign: 'center',
-  },
-  navigationFilename: {
-    marginTop: 5,
-  },
-  helpLink: {
+  option: {
+    backgroundColor: '#fdfdfd',
+    paddingHorizontal: 15,
     paddingVertical: 15,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderBottomWidth: 0,
+    borderColor: '#ededed',
   },
-  helpLinkText: {
-    fontSize: 14,
-    color: '#2e78b7',
+  lastOption: {
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  optionText: {
+    fontSize: 15,
+    alignSelf: 'flex-start',
+    marginTop: 1,
+  },
+  fixToText: {
+    flexDirection: "row",
+    justifyContent: "space-between"
+  },
+  contentContainer: {
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  listcontainer: {
+    flexDirection: "row",
+    backgroundColor: "#fff",
+    alignItems: "center"
   },
 });

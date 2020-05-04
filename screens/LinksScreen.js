@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, FlatList, View } from 'react-native';
+import { StyleSheet, FlatList, View, AsyncStorage } from 'react-native';
 import { Text, Button, Card } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
 import * as WebBrowser from 'expo-web-browser';
@@ -10,32 +10,44 @@ import Load from "../Load";
 
 export default function LinksScreen(props) {
 const [postList, setPostList] = useState([]);
-//const [user, setUser] = useState({});
+const [userID, setUserID] = useState("");
 const { navigate } = props.navigation;
 
 
+
 useEffect(() => {
-
-//console.log("PROPS", props);
- // console.log("USER GET", params);
-//setUser(Firebase.auth().currentUser);
-
-
+  const userID = Firebase.auth().currentUser.uid.toString();
+  setUserID(userID);
   Firebase.database()
-    .ref("blogPostdb/")
+    .ref("blogPostdb/"+userID+"/")
     .on("value", snapshot => {
       const data = snapshot.val();
       const prods = Object.values(data);
       console.log("prods", prods);
+      const keyArray = Object.keys(data);
+
+        for (const [i, v] of prods.entries()) {
+          prods[i].key = keyArray[i];
+        }
+        if (prods!=null) {
       setPostList(prods);
+    }
+
     });
 }, []);
 
-const getUser = async () => {
-  const user = Firebase.auth().currentUser;
- return user;
-}
 
+const deleteItem = (item) => {
+  console.log("delete id " + item.key);
+  console.log("image"+item.imageUri)
+  try {
+  Firebase.database().ref("blogPostdb/" + userID + "/" + item.key).remove();
+  Firebase.storage().ref().child(item.imageId).delete();
+  }
+  catch(error) {
+    console.log(error);
+}
+   }
 
 
 
@@ -48,14 +60,6 @@ const signOutUser = async () => {
   }
 }
 
-const deleteItem = (id) => {
-
- //console.log("KEY",  Firebase.database().ref("blogPostdb/").key)
-     // var list = Firebase.database().ref("blogPostdb/").orderByValue();
-      //console.log("list", list);
-      console.log("delete isn't working");
-
-  }
 
 const keyExtractor = item => {
   return item.id.toString();
@@ -65,7 +69,6 @@ const renderItem = ({ item }) => (
 
 
 <Card
-  
   title={item.title}
   image={{ uri: item.imageUri }}>
   <Text style={{marginBottom: 10}}>
@@ -73,7 +76,7 @@ const renderItem = ({ item }) => (
   </Text>
   <Button
     buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
-    onPress={() => deleteItem(item.id)}
+    onPress={() => deleteItem(item)}
     title='Delete' />
 </Card>
 
@@ -103,6 +106,7 @@ const renderItem = ({ item }) => (
         <View>
         <Button title="Logout" onPress={signOutUser} />
         <Button onPress={() => navigate('AddBlogPost' )} title="Add POST"/>
+        <Button onPress={() => navigate('PersonalMap')} title="Go to Personal Map" />
         </View>
     </ScrollView>
   );

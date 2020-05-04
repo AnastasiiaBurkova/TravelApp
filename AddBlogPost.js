@@ -35,7 +35,6 @@ const [imageUri, setImageUri] = useState("");
 const [displayImage, setDisplayImage] = useState(false);
 const [displayAddButton, setDisplayAddButton] = useState(true);
 const [imageId, setImageId] = useState("");
-//const [pushKey, setPushKey] = useState("");
 const { navigate } = props.navigation;
 
 //const { params } = props.navigation.state;
@@ -44,11 +43,12 @@ const saveItem = () => {
     
     if (imageId!==null && imageId!=="") {
         console.log("ID" + imageId);
+        const userID = Firebase.auth().currentUser.uid.toString();
 
     //var push = 
     db.database()
-      .ref("blogPostdb/")
-      .push({ id: itemId, title: title, location: location, description: description, imageUri: imageUri });
+      .ref("blogPostdb/"+ userID + "/")
+      .push({ id: itemId, imageId: imageId, title: title, location: location, description: description, imageUri: imageUri });
        //setPushKey(push.key);
        navigate('Links');
     }
@@ -56,6 +56,7 @@ const saveItem = () => {
         Alert.alert("Please upload an image");
     }
   };
+  
   
  
 
