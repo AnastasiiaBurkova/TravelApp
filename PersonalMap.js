@@ -81,28 +81,11 @@ export default function PersonalMap(props) {
       console.log("region", region);
   }
 
-  const storeRegion = async region => {
-    try {
-      await AsyncStorage.setItem("region", region);
-    } catch (error) {
-      console.log("Error saving data");
-    }
-  }; 
 
-  const readData = async () => {
-    try {
-      const value = await AsyncStorage.getItem("region");
-      console.log("region ASYNC", value);
-      if (value !== null) {
-        setRegion(region);
-      }
-    } catch (error) {
-      Alert.alert("Error reading data");
-    }
-  }
+
 
   
-
+  console.log(" Important regionArray", regionArray);
   return (
     <View style={styles.container}>
       <View style={styles.mapStyle}>
