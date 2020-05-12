@@ -1,134 +1,149 @@
 import React, { useState, useEffect } from "react";
-
-import { StyleSheet, FlatList, View, AsyncStorage, Alert, Button } from 'react-native';
+import { StyleSheet, View, Dimensions } from "react-native";
 import MapView, { Marker } from "react-native-maps";
+import { Icon } from "react-native-elements";
+import { Screen, Button, Text, NavigationBar, Title } from "@shoutem/ui";
 import Firebase from "firebase";
 
 export default function PersonalMap(props) {
-    const { navigate } = props.navigation;
-    const [title, setTitle] = useState([]);
-    const [region, setRegion] = useState({
-      latitude: null,
-      longitude: null,
-      latitudeDelta: 0.0322,
-      longitudeDelta: 0.0221
+  const { navigate } = props.navigation;
+  const [region, setRegion] = useState({
+    latitude: 60.200692,
+    longitude: 24.934302,
+    latitudeDelta: 0.0322,
+    longitudeDelta: 0.0221,
   });
-    const [regionArray, setRegionArray] = useState([]);
-    const [location, setLocation] = useState("");
-    const [locationArray, setLocationArray] = useState([]);
+  const [regionArray, setRegionArray] = useState([]);
+  const [postList, setPostList] = useState([]);
 
   useEffect(() => {
+    const userID = Firebase.auth().currentUser.uid.toString();
     Firebase.database()
-      .ref("blogPostdb/")
-      .on("value", snapshot => {
+      .ref("blogPostdb/" + userID + "/")
+      .on("value", (snapshot) => {
         const data = snapshot.val();
         const prods = Object.values(data);
 
-        /*for (const [i, v] of prods.entries()) {
-            //console.log("prods here ", prods[i].location)
-            setLocation(prods[i].location);
-            console.log("prods[i].location ", prods[i].location);
-            var pol = [...pol, prods[i].location];
-            setLocationArray(pol);
-            console.log("pol", pol);
-            
-          }*/
-          
+        if (prods != null) {
+          setPostList(prods);
+        }
+
         getData(prods);
-       
-       
       });
   }, []);
   const getData = (obj) => {
-      for (const [i, v] of obj.entries()) {
-    const url =
-      "http://www.mapquestapi.com/geocoding/v1/address?key=XXBVccYSp03WjOpc82Wm5V16W4Deix9s&location=" +
-      obj[i].location;
-    fetch(url, { method: "GET" })
-      .then(response => response.json())
-      .then(responseJson => {
-        const data = responseJson.results[0].locations[0];
-        let p = {
+    for (const [i, v] of obj.entries()) {
+      const url =
+        "http://www.mapquestapi.com/geocoding/v1/address?key=XXBVccYSp03WjOpc82Wm5V16W4Deix9s&location=" +
+        obj[i].location;
+      fetch(url, { method: "GET" })
+        .then((response) => response.json())
+        .then((responseJson) => {
+          const data = responseJson.results[0].locations[0];
+          let r = {
             latitude: data.latLng.lat,
             longitude: data.latLng.lng,
             latitudeDelta: 0.0322,
-            longitudeDelta: 0.0221
-          }
-          setRegion(p);
-
-          var test = regionArray.push(p);
+            longitudeDelta: 0.0221,
+            title:
+              data.adminArea1 +
+              " " +
+              data.adminArea5 +
+              " " +
+              data.adminArea6 +
+              " " +
+              data.postalCode +
+              " " +
+              data.street,
+          };
+          setRegion({
+            latitude: data.latLng.lat,
+            longitude: data.latLng.lng,
+            latitudeDelta: 0.0322,
+            longitudeDelta: 0.0221,
+          });
+          var test = regionArray.push(r);
           setRegionArray(...test, test);
-        setTitle(
-          data.adminArea1 +
-            " " +
-            data.adminArea5 +
-            " " +
-            data.adminArea6 +
-            " " +
-            data.postalCode +
-            " " +
-            data.street
-        );
-      })
-      .catch(error => {
-        console.log("Error", error);
-      });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   };
 
-  const regionA = () => {
-      console.log("regionArray", regionArray);
-      console.log("region", region);
-  }
+  const showOnMap = () => {
+    getData(postList);
+  };
 
-
-
-
-  
-  console.log(" Important regionArray", regionArray);
   return (
-    <View style={styles.container}>
+    <Screen>
+      <NavigationBar
+        styleName="inline"
+        leftComponent={
+          <Button onPress={() => navigate("Links")}>
+            <Text style={styles.cancelButton}>Cancel</Text>
+          </Button>
+        }
+        centerComponent={<Title style={styles.header}>Map</Title>}
+        rightComponent={
+          <Button onPress={showOnMap}>
+            <Icon name="refresh" />
+          </Button>
+        }
+      />
       <View style={styles.mapStyle}>
-        <MapView style={styles.mapCont} region={region} onRegionChange={getData}>
-
-            {regionArray.map((marker) =>  (
-          <Marker
+        <MapView style={styles.mapCont} region={region}>
+          {regionArray.map((marker) => (
+            <Marker
               coordinate={{
-              latitude: marker.latitude,
-              longitude: marker.longitude
-            }}
-            //title={loc.title}
-          />
+                latitude: marker.latitude,
+                longitude: marker.longitude,
+              }}
+              title={marker.title}
+            />
           ))}
         </MapView>
       </View>
       <View>
-        <Button title="SHOW" onPress={getData} />
-        <Button title="TEST" onPress={regionA} />
+        <Button style={styles.button} onPress={showOnMap}>
+          <Text style={styles.buttonText}>Where was I?</Text>
+        </Button>
       </View>
-    </View>
+    </Screen>
   );
-
-
-
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: "#fff",
-      alignItems: "center",
-      justifyContent: "center"
-    },
-    mapCont: {
-      position: "absolute",
-      width: "100%",
-      height: "100%"
-    },
-    mapStyle: {
-      flex: 8,
-      backgroundColor: "#fff",
-      alignItems: "center",
-      justifyContent: "center"
-    }
-  });
+  mapCont: {
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+  },
+  mapStyle: {
+    flex: 8,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  header: {
+    fontFamily: "Sansation",
+    fontSize: 22,
+    color: "#286759",
+  },
+  button: {
+    backgroundColor: "#52E4C4",
+    borderRadius: 10,
+    borderColor: "#52E4C4",
+    fontFamily: "Sansation",
+  },
+  buttonText: {
+    color: "#286759",
+    alignItems: "flex-end",
+    fontSize: 14,
+    fontFamily: "Sansation",
+  },
+  cancelButton: {
+    fontSize: 16,
+    fontFamily: "Sansation",
+  },
+});

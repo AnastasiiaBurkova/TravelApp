@@ -4,6 +4,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import Travel from '../screens/Travel';
+import PersonalMap from '../PersonalMap';
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Links';
@@ -21,7 +22,7 @@ export default function BottomTabNavigator({ navigation, route }) {
         component={HomeScreen}
         options={{
           title: 'MainFeed',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-book" />,
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="rss-feed" />,
         }}
       />
       <BottomTab.Screen
@@ -29,7 +30,15 @@ export default function BottomTabNavigator({ navigation, route }) {
         component={LinksScreen}
         options={{
           title: 'User',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-user" />,
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="person-outline" />,
+        }}
+      />
+      <BottomTab.Screen
+        name="PersonalMap"
+        component={PersonalMap}
+        options={{
+          title: 'Personal Map',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="map" />,
         }}
       />
       <BottomTab.Screen
@@ -37,7 +46,7 @@ export default function BottomTabNavigator({ navigation, route }) {
         component={Travel}
         options={{
           title: 'Travel',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-user" />,
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="flight" />,
         }}
       />
     </BottomTab.Navigator>

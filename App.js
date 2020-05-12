@@ -6,7 +6,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import AddBlogPost from './AddBlogPost';
-import PersonalMap from './PersonalMap';
+import SinglePost from './SinglePost';
+import EditPost from './EditPost';
 import SignUp from './SignUp';
 import Login from './Login';
 import Load from './Load';
@@ -36,7 +37,9 @@ export default function App(props) {
         // Load fonts
         await Font.loadAsync({
           ...Ionicons.font,
+          'Sansation': require('./node_modules/fonts/Sansation-Regular.ttf'),
           'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
+          'Rubik-Regular': require('./node_modules/@shoutem/ui/fonts/Rubik-Regular.ttf')
         });
       } catch (e) {
         // We might want to provide this error information to an error reporting service
@@ -60,7 +63,8 @@ export default function App(props) {
           <Stack.Navigator initialRouteName={"Load"} screenOptions={{headerShown: false}} >
             <Stack.Screen name="Root" component={BottomTabNavigator} />
             <Stack.Screen name="AddBlogPost" component={AddBlogPost} />
-            <Stack.Screen name="PersonalMap" component={PersonalMap} />
+            <Stack.Screen name="SinglePost" component={SinglePost} />
+            <Stack.Screen name="EditPost" component={EditPost} />
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="Load" component={Load} />

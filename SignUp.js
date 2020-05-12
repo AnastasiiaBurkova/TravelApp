@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { StyleSheet, TouchableOpacity, Dimensions } from "react-native";
 import {
-  StyleSheet,
-  View,
+  ImageBackground,
+  Button,
+  Screen,
   TextInput,
+  Text,
   Image,
-  TouchableOpacity,
-} from "react-native";
-import { Text, Button, Input } from "react-native-elements";
-import { RectButton, ScrollView } from "react-native-gesture-handler";
+} from "@shoutem/ui";
+import { ScrollView } from "react-native-gesture-handler";
 import Firebase from "firebase";
 
 export default function SignUp(props) {
@@ -28,40 +29,49 @@ export default function SignUp(props) {
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
     >
-      <Image
-        source={
-          __DEV__
-            ? require("./assets/images/logo.png")
-            : require("./assets/images/logo.png")
-        }
-        style={styles.logo}
-      />
-      {authError && <Text style={{ color: "red" }}>{authError}</Text>}
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.inputText}
-          placeholder="Enter an email"
-          label="EMAIL"
-          onChangeText={(email) => setEmail(email)}
-          value={email}
-        />
-      </View>
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.inputText}
-          placeholder="Enter a password"
-          label="PASSWORD"
-          onChangeText={(password) => setPassword(password)}
-          value={password}
-        />
-      </View>
-      <TouchableOpacity style={styles.loginBtn} onPress={signUpUser}>
-        <Text style={styles.loginText}>SignUp</Text>
-      </TouchableOpacity>
+      <Screen>
+        <ImageBackground
+          style={styles.windowProp}
+          source={{
+            uri:
+              "https://superstarblogging.nomadicmatt.com/wp-content/uploads/2018/11/makemoney1a.jpg",
+          }}
+        >
+          <Image
+            source={
+              __DEV__
+                ? require("./assets/images/logo.png")
+                : require("./assets/images/logo.png")
+            }
+            style={styles.logo}
+          />
+          {authError && <Text style={{ color: "red" }}>{authError}</Text>}
+          <TextInput
+            style={styles.textInputs}
+            placeholder="Enter an email"
+            label="EMAIL"
+            onChangeText={(email) => setEmail(email)}
+            value={email}
+          />
+          <TextInput
+            style={styles.textInputs}
+            placeholder="Enter a password"
+            label="PASSWORD"
+            onChangeText={(password) => setPassword(password)}
+            value={password}
+            secureTextEntry
+          />
+          <Button style={styles.button} onPress={signUpUser}>
+            <Text style={styles.buttonText}>SignUp</Text>
+          </Button>
 
-      <TouchableOpacity onPress={() => navigate("Login")}>
-        <Text style={styles.loginText}>Already have an account? Login</Text>
-      </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigate("Login")}>
+            <Text style={styles.alreadyAccount}>
+              Already have an account? Login
+            </Text>
+          </TouchableOpacity>
+        </ImageBackground>
+      </Screen>
     </ScrollView>
   );
 }
@@ -69,14 +79,13 @@ export default function SignUp(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#C3DBE3",
+    backgroundColor: "#E5E5E5",
   },
   contentContainer: {
     flexGrow: 1,
     justifyContent: "center",
     alignItems: "center",
   },
-
   logo: {
     width: 350,
     height: 280,
@@ -84,52 +93,37 @@ const styles = StyleSheet.create({
     marginTop: 3,
     marginLeft: -10,
   },
-  inputView: {
-    width: "80%",
-    backgroundColor: "#E5DED4",
-    borderRadius: 25,
-    height: 50,
-    marginBottom: 20,
-    justifyContent: "center",
-    padding: 20,
+  alreadyAccount: {
+    color: "#E5E5E5",
+    alignItems: "flex-end",
+    fontSize: 13,
+    fontFamily: "Sansation",
   },
-  optionIconContainer: {
-    marginRight: 12,
+  windowProp: {
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
   },
-  option: {
-    backgroundColor: "#fdfdfd",
-    paddingHorizontal: 15,
-    paddingVertical: 15,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderBottomWidth: 0,
-    borderColor: "#ededed",
+  textInputs: {
+    height: 55,
+    width: 260,
+    borderRadius: 30,
+    borderColor: "#E5E5E5",
+    borderWidth: 2,
+    marginBottom: 8,
   },
-  inputText: {
-    height: 50,
+  button: {
+    backgroundColor: "#52E4C4",
+    borderRadius: 27.5,
+    height: 55,
+    width: 200,
+    borderColor: "#52E4C4",
+    fontFamily: "Sansation",
+    alignSelf: "center",
   },
-  lastOption: {
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-  optionText: {
-    fontSize: 15,
-    alignSelf: "flex-start",
-    marginTop: 1,
-  },
-  forgot: {
-    color: "#354356",
-    fontSize: 11,
-  },
-  loginBtn: {
-    width: "80%",
-    backgroundColor: "#59606D",
-    borderRadius: 25,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 20,
-    marginBottom: 10,
-  },
-  loginText: {
-    color: "#354356",
+  buttonText: {
+    color: "#286759",
+    alignItems: "flex-end",
+    fontSize: 14,
+    fontFamily: "Sansation",
   },
 });
