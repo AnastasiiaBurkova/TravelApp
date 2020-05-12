@@ -22,6 +22,9 @@ export default function PersonalMap(props) {
       .ref("blogPostdb/" + userID + "/")
       .on("value", (snapshot) => {
         const data = snapshot.val();
+        if (data == null) {
+          return null;
+        }
         const prods = Object.values(data);
 
         if (prods != null) {

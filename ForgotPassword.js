@@ -11,25 +11,20 @@ import {
 import { ScrollView } from "react-native-gesture-handler";
 import Firebase from "firebase";
 
-export default function SignUp(props) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+export default function ForgotPassword(props) {
   const [authError, setAuthError] = useState(null);
+  const [email, setEmail] = useState("");
   const { navigate } = props.navigation;
 
-  const signUpUser = () => {
+  const passwordReset = () => {
     Firebase.auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then((user) => {
-        try {
-          var u = Firebase.auth().currentUser;
-          u.sendEmailVerification();
-          navigate("Login");
-        } catch (err) {
-          console.log("Error on email sending", err);
-        }
+      .sendPasswordResetEmail(email)
+      .then(() => {
+        navigate("Login");
       })
-      .catch((error) => setAuthError(error.message));
+      .catch((error) => {
+        setAuthError(error);
+      });
   };
 
   return (
@@ -53,6 +48,7 @@ export default function SignUp(props) {
             }
             style={styles.logo}
           />
+
           {authError && <Text style={{ color: "red" }}>{authError}</Text>}
           <TextInput
             style={styles.textInputs}
@@ -61,22 +57,12 @@ export default function SignUp(props) {
             onChangeText={(email) => setEmail(email)}
             value={email}
           />
-          <TextInput
-            style={styles.textInputs}
-            placeholder="Enter a password"
-            label="PASSWORD"
-            onChangeText={(password) => setPassword(password)}
-            value={password}
-            secureTextEntry
-          />
-          <Button style={styles.button} onPress={signUpUser}>
-            <Text style={styles.buttonText}>SignUp</Text>
-          </Button>
 
+          <Button style={styles.button} onPress={passwordReset}>
+            <Text style={styles.buttonText}>Reset</Text>
+          </Button>
           <TouchableOpacity onPress={() => navigate("Login")}>
-            <Text style={styles.alreadyAccount}>
-              Already have an account? Login
-            </Text>
+            <Text style={styles.signUpButton}>Back To Login</Text>
           </TouchableOpacity>
         </ImageBackground>
       </Screen>
@@ -101,10 +87,10 @@ const styles = StyleSheet.create({
     marginTop: 3,
     marginLeft: -10,
   },
-  alreadyAccount: {
+  signUpButton: {
     color: "#E5E5E5",
     alignItems: "flex-end",
-    fontSize: 13,
+    fontSize: 14,
     fontFamily: "Sansation",
   },
   windowProp: {

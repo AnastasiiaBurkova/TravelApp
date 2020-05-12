@@ -10,6 +10,7 @@ import SinglePost from './SinglePost';
 import EditPost from './EditPost';
 import SignUp from './SignUp';
 import Login from './Login';
+import ForgotPassword from './ForgotPassword';
 import Load from './Load';
 
 import BottomTabNavigator from './navigation/BottomTabNavigator';
@@ -67,6 +68,7 @@ export default function App(props) {
             <Stack.Screen name="EditPost" component={EditPost} />
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
             <Stack.Screen name="Load" component={Load} />
           </Stack.Navigator>
         </NavigationContainer>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { StyleSheet, TouchableOpacity, Dimensions } from "react-native";
 import {
   ImageBackground,
@@ -20,7 +20,15 @@ export default function Login(props) {
   const userLogin = () => {
     Firebase.auth()
       .signInWithEmailAndPassword(email, password)
-      .then(() => navigate("Load"))
+      .then(() => {
+        var u = Firebase.auth().currentUser;
+        if (u.emailVerified === false) {
+          setAuthError("Email is not verified!");
+        } else {
+          console.log("Email is verified");
+          navigate("Root");
+        }
+      })
       .catch((error) => setAuthError(error.message));
   };
 
@@ -62,7 +70,7 @@ export default function Login(props) {
             value={password}
             secureTextEntry
           />
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigate("ForgotPassword")}>
             <Text style={styles.forgot}>Forgot Password?</Text>
           </TouchableOpacity>
           <Button style={styles.button} onPress={userLogin}>

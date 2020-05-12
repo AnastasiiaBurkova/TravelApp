@@ -7,7 +7,7 @@ export default function Load(props) {
 
   useEffect(() => {
     Firebase.auth().onAuthStateChanged((user) => {
-      navigate(user ? "Root" : "Login");
+      navigate(user && user.emailVerified === true ? "Root" : "Login");
     });
   }, []);
 

@@ -27,6 +27,7 @@ export default function LinksScreen(props) {
       .ref("blogPostdb/" + userID + "/")
       .on("value", (snapshot) => {
         const data = snapshot.val();
+        if (data != null) {
         const prods = Object.values(data);
         const keyArray = Object.keys(data);
 
@@ -36,7 +37,7 @@ export default function LinksScreen(props) {
         if (prods != null) {
           setPostList(prods);
         }
-      });
+      }});
   }, []);
 
   const deleteItem = (item) => {
