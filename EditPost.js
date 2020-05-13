@@ -58,7 +58,7 @@ export default function EditPost(props) {
               "https://superstarblogging.nomadicmatt.com/wp-content/uploads/2018/11/makemoney1a.jpg",
           }}
         >
-          <View style={{ marginTop: -480 }}>
+          <View style={{ marginTop: -320 }}>
             <Text style={styles.inputTitles}>Title</Text>
             <TextInput
               style={styles.textInputs}

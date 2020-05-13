@@ -243,7 +243,7 @@ export default function Travel(props) {
           }}
         >
           {displaySearchButton ? (
-            <View style={{ marginTop: -380 }}>
+            <View style={{ marginTop: -300 }}>
               <Title style={styles.mainText}>
                 Enjoy your travel experince and find new inspirations by
                 discovering best routes to your favourite destinations!

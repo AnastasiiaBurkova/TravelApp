@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, FlatList, View, Dimensions } from 'react-native';
-import { Button } from 'react-native-elements';
 import CountryPicker from 'react-native-country-picker-modal';
-import { ImageBackground, Title, Card, Subtitle, Tile, Divider, Screen, NavigationBar, Text, Icon, TouchableOpacity, GridRow, Image, Caption } from '@shoutem/ui';
-import { RectButton, ScrollView, TextInput } from 'react-native-gesture-handler';
+import { Title, Card, Subtitle, Screen, NavigationBar, Text, TouchableOpacity, GridRow, Image, Caption } from '@shoutem/ui';
 import Firebase from "firebase";
-import Load from "../Load";
 
 
 export default function HomeScreen(props) {
@@ -17,7 +14,6 @@ const [withCloseButton, setWithCloseButton] = useState(false);
 const [withFilter, setWithFilter] = useState(true);
 const [postList, setPostList] = useState([]);
 const [selectedPostList, setSelectedPostList] = useState([]);
-const [firstTime, setFirstTime] = useState(true);
 const { navigate } = props.navigation;
 
 
